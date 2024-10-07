@@ -1,0 +1,42 @@
+<html>
+<head>
+  <title>Institute and Student Payment Relationship</title>
+  <style>
+    body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+    .container { text-align: center; position: relative; }
+    input[type=range] { width: 100%; }
+    h2, p { font-size: 1.5em; }
+    .student, .college { position: absolute; top: 50%; transform: translateY(-50%); font-size: 3em; }
+    .student { left: -200px; }
+    .college { right: -200px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="student">🎓</div>
+    <h2>Institute and Student Payment Relationship</h2>
+    <p>Use the slider to adjust the percentage of the institute's share given back to students:</p>
+    <input type="range" min="0" max="100" value="50" id="percentageSlider" oninput="updateValues()">
+    <p>Percentage given back to students: <span id="percentageValue">50</span>%</p>
+    <p>Student pays: $<span id="studentPays">13,650</span></p>
+    <p>Institute makes: $<span id="instituteMakes">5,850</span></p>
+    <div class="college">🏫</div>
+  </div>
+
+  <script>
+    const totalCost = 19500;
+    const instituteShare = 0.60 * totalCost;
+
+    function updateValues() {
+      const percentage = document.getElementById('percentageSlider').value;
+      const amountGivenBack = (percentage / 100) * instituteShare;
+      const studentPays = totalCost - amountGivenBack;
+      const instituteMakes = instituteShare - amountGivenBack;
+
+      document.getElementById('percentageValue').innerText = percentage;
+      document.getElementById('studentPays').innerText = studentPays.toFixed(2);
+      document.getElementById('instituteMakes').innerText = instituteMakes.toFixed(2);
+    }
+  </script>
+</body>
+</html>
